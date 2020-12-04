@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+      <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
+      <PackageReference Include="CC.TouchTracking.Forms" Version="1.3.0" />
+      <PackageReference Include="Xamarin.Forms" Version="4.6.0.772" />
+  </ItemGroup>
+</Project>
