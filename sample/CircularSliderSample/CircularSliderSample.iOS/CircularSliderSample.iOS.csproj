@@ -129,8 +129,12 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\CircularSliderSample\CircularSliderSample.csproj">
-      <Project>{1431D335-E6F1-4C43-9FC5-7FFB4C7741BE}</Project>
+      <Project>{C04750BF-DB05-448B-85F2-2A195FB746B4}</Project>
       <Name>CircularSliderSample</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\CC.CircularSlider.Forms.iOS\CC.CircularSlider.Forms.iOS.csproj">
+      <Project>{EA6B3CEE-A755-4D5F-B864-BECA5A91985F}</Project>
+      <Name>CC.CircularSlider.Forms.iOS</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

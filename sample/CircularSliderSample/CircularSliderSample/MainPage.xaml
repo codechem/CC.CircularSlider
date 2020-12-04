@@ -1,16 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cc="clr-namespace:CC;assembly=CC.CircularSlider"
-             x:Class="CircularSliderSample.MainPage">
+<ContentPage
+    x:Class="CircularSliderSample.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cc="clr-namespace:CC;assembly=CC.CircularSlider.Forms">
 
     <StackLayout Padding="50">
-        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" HeightRequest="150">
-            <cc:CircularSlider PaddingAround="10" Start="270" Value="0.5" Arc="360" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-            <cc:CircularSlider PaddingAround="25" Start="115" Value="0.5" Arc="310" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+        <StackLayout
+            HeightRequest="150"
+            HorizontalOptions="FillAndExpand"
+            Orientation="Horizontal">
+            <cc:CircularSlider
+                Arc="360"
+                HorizontalOptions="FillAndExpand"
+                PaddingAround="10"
+                Start="270"
+                VerticalOptions="FillAndExpand"
+                Value="0.5" />
+            <cc:CircularSlider
+                Arc="310"
+                HorizontalOptions="FillAndExpand"
+                PaddingAround="25"
+                Start="115"
+                VerticalOptions="FillAndExpand"
+                Value="0.5" />
         </StackLayout>
-        <cc:CircularSlider TrackProgressColor="{Binding Color}" KnobColor="{Binding Color}" OnValueChanged="CircularSlider_OnValueChanged"  PaddingAround="10" Start="90" Arc="360" Value="50" Minimum="0" Maximum="100" VerticalOptions="FillAndExpand"/>
-        <cc:CircularSlider PaddingAround="25" Start="115" Value="0.5" Arc="310" VerticalOptions="FillAndExpand"/>
+        <cc:CircularSlider
+            Arc="360"
+            KnobColor="{Binding Color}"
+            Maximum="100"
+            Minimum="0"
+            OnValueChanged="CircularSlider_OnValueChanged"
+            PaddingAround="10"
+            Start="90"
+            TrackProgressColor="{Binding Color}"
+            VerticalOptions="FillAndExpand"
+            Value="50" />
+        <cc:CircularSlider
+            Arc="310"
+            PaddingAround="25"
+            Start="115"
+            VerticalOptions="FillAndExpand"
+            Value="0.5" />
     </StackLayout>
-
 </ContentPage>

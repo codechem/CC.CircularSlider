@@ -5,15 +5,17 @@
              xmlns:tt="clr-namespace:TouchTracking.Forms;assembly=TouchTracking.Forms"
              x:Name="self"
              x:Class="CC.CircularSlider">
-  <ContentView.Content>
-    <views:SKCanvasView x:Name="canvas" PaintSurface="CanvasOnPaintSurface" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-        <views:SKCanvasView.Effects>
-            <tt:TouchEffect Capture="True" TouchAction="TouchEffect_TouchAction" />
-        </views:SKCanvasView.Effects>
-        <views:SKCanvasView.GestureRecognizers>
-            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-            <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
-        </views:SKCanvasView.GestureRecognizers>
-    </views:SKCanvasView>
-  </ContentView.Content>
+    <ContentView.Content>
+        <Grid>
+            <views:SKCanvasView x:Name="canvas" PaintSurface="CanvasOnPaintSurface" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <views:SKCanvasView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
+                </views:SKCanvasView.GestureRecognizers>
+            </views:SKCanvasView>
+            <Grid.Effects>
+                <tt:TouchEffect Capture="True" TouchAction="TouchEffect_TouchAction" />
+            </Grid.Effects>
+        </Grid>
+    </ContentView.Content>
 </ContentView>  

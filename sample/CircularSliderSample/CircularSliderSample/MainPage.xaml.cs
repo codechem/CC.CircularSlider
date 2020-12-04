@@ -18,7 +18,7 @@ namespace CircularSliderSample
             }
         }
     }
-    
+
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
         public VM Model = new VM();
