@@ -8,6 +8,8 @@
 bin/
 obj/
 
+*.nupkg
+
 # User-specific files
 *.suo
 *.user
