@@ -3,14 +3,14 @@
   <metadata>
     <id>CC.CircularSlider.Forms</id>
     <title>CC.CircularSlider.Forms</title>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Code Chemistry</authors>
     <owners>Code Chemistry</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>CC.CircularSlider.Forms Circular slider implementation for Xamarin.Forms.</description>
     <licenseUrl>https://github.com/codechem/CC.CircularSlider.Forms/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/codechem/CC.CircularSlider.Forms</projectUrl>
-    <tags>touchtracking,xamarin,forms,touch,ios,android,cross-platform</tags>
+    <tags>circular,slider,arc,xamarin,forms,touch,ios,android,cross-platform</tags>
     <dependencies>
       <dependency id="Xamarin.Forms" version="4.6.0.7720" />
       <dependency id="CC.TouchTracking.Forms" version="1.3.1" />
