@@ -8,6 +8,17 @@ namespace CircularSliderSample
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        double value = 25;
+        public double Value
+        {
+            get => value;
+            set
+            {
+                this.value = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
+            }
+        }
+
         Color color = Color.Orange;
         public Color Color
         {
@@ -29,6 +40,11 @@ namespace CircularSliderSample
             BindingContext = Model;
         }
 
+        void Button_Clicked(System.Object sender, System.EventArgs e)
+        {
+                Model.Value = 25;
+        }
+
         private void CircularSlider_OnValueChanged(object sender, ValueChangedEventArgs e)
         {
             if (e.NewValue < 30)
@@ -45,8 +61,6 @@ namespace CircularSliderSample
             {
                 Model.Color = Color.Red;
             }
-
-            Console.WriteLine(e.NewValue);
         }
     }
 }

@@ -3,12 +3,10 @@ using SkiaSharp.Views.Forms;
 using System;
 
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace CC
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CircularSlider : ContentView
+    public class CircularSlider : SKCanvasView
     {
         bool hasTouch = false;
         double progress = 0;
@@ -86,7 +84,14 @@ namespace CC
             typeof(double), typeof(CircularSlider), 360.0, BindingMode.OneWay, null, BindablePropertyChanged);
 
         public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value),
-            typeof(double), typeof(CircularSlider), 0.0, BindingMode.OneWay, null, BindablePropertyChanged);
+            typeof(double), typeof(CircularSlider), 0.0, BindingMode.TwoWay, null, (obj, oldVal, newVal) => {
+                BindablePropertyChanged(obj, oldVal, newVal);
+                if (oldVal != newVal)
+                {
+                    var instance = (CircularSlider)obj;
+                    instance.OnValueChanged?.Invoke(instance, new ValueChangedEventArgs((double)oldVal, (double)newVal));
+                }
+            });
 
         public static readonly BindableProperty PaddingAroundProperty = BindableProperty.Create(nameof(PaddingAround),
             typeof(double), typeof(CircularSlider), 25.0);
@@ -121,7 +126,15 @@ namespace CC
         public double Value
         {
             get => (double)GetValue(ValueProperty);
-            set => SetValue(ValueProperty, (double)value);
+            set {
+                var old = Value;
+                SetValue(ValueProperty, (double)value);
+                if (old != Value)
+                {
+                    OnValueChanged?.Invoke(this, new ValueChangedEventArgs(old, Value));
+                }
+                BindablePropertyChanged(this, old, value);
+            }
         }
 
         public double PaddingAround
@@ -168,10 +181,20 @@ namespace CC
 
         public CircularSlider()
         {
-            InitializeComponent();
+            EnableTouchEvents = true;
         }
 
-        private void CanvasOnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        protected override void OnTouch(SKTouchEventArgs e)
+        {
+            base.OnTouch(e);
+            hasTouch = true;
+            touchX = e.Location.X;
+            touchY = e.Location.Y;
+            InvalidateSurface();
+            e.Handled = true;
+        }
+
+        protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
         {
             var canvas = e.Surface.Canvas;
             canvas.Clear();
@@ -192,14 +215,10 @@ namespace CC
 
             if (hasTouch)
             {
-                // Need to transform the touches on the screen to coordinates on the canvas.
-                var touchInCanvasX = (touchX / this.canvas.Width) * info.Width;
-                var touchInCanvasY = (touchY / this.canvas.Height) * info.Height;
-
-                var (cx, cy) = Utils.PointOnCircle(originX, originY, radius, touchInCanvasX, touchInCanvasY);
+                var (cx, cy) = Utils.PointOnCircle(originX, originY, radius, touchX, touchY);
                 double theta = Utils.PointOnCircleToAngle(cx, cy, originX, originY);
                 var angleEnd = Utils.Modulo(Start + Arc, 360.0);
-
+                        
                 var diffToStart = Math.Abs(Utils.AbsoluteDiff(Start, theta));
                 var diffToEnd = Math.Abs(Utils.AbsoluteDiff(angleEnd, theta));
 
@@ -225,9 +244,12 @@ namespace CC
                 if (progressArc > Arc) progressArc = Arc;
                 else if (progressArc < 0) progressArc = 0;
 
-                var oldVal = CalculatedValue;
+                var oldVal = Value;
                 progress = progressArc / Arc;
-                OnValueChanged?.Invoke(this, new ValueChangedEventArgs(oldVal, CalculatedValue));
+                if (oldVal != CalculatedValue)
+                {
+                    Value = CalculatedValue;
+                }
             }
 
             var px = originX + (float)(radius * Math.Cos(Utils.ToRadians(Start + progressArc)));
@@ -251,32 +273,13 @@ namespace CC
             canvas.Translate(arcRect.Width * 0.5f, arcRect.MidY - arcRect.Height * 0.5f);
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            hasTouch = true;
-            canvas.InvalidateSurface();
-        }
-
-        private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
-        {
-            hasTouch = true;
-            canvas.InvalidateSurface();
-        }
-
-        private void TouchEffect_TouchAction(object sender, TouchTracking.TouchActionEventArgs args)
-        {
-            hasTouch = true;
-            touchX = args.Location.X;
-            touchY = args.Location.Y;
-            canvas.InvalidateSurface();
-        }
-
         private static void BindablePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var instance = (CircularSlider)bindable;
+            instance.hasTouch = false;
             instance.progress = instance.Value / instance.Maximum;
             instance.progressArc = instance.Arc * instance.progress;
-            instance.canvas.InvalidateSurface();
+            instance.InvalidateSurface();
         }
     }
 }

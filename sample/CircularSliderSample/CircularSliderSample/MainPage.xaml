@@ -35,7 +35,8 @@
             Start="90"
             TrackProgressColor="{Binding Color}"
             VerticalOptions="FillAndExpand"
-            Value="50" />
+            Value="{Binding Value}" />
+        <Button Text="Reset Value" Clicked="Button_Clicked" />
         <cc:CircularSlider
             Arc="310"
             PaddingAround="25"
