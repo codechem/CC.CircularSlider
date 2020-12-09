@@ -39,8 +39,6 @@ namespace CC
             IsAntialias = true
         };
 
-        private double CalculatedValue => Minimum + Maximum * progress;
-
         public static readonly BindableProperty TrackColorProperty = BindableProperty.Create(nameof(TrackColor),
             typeof(Color), typeof(CircularSlider), Color.Red, BindingMode.OneWay, null, (BindableObject bindable, object oldValue, object newValue) =>
             {
@@ -85,12 +83,9 @@ namespace CC
 
         public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value),
             typeof(double), typeof(CircularSlider), 0.0, BindingMode.TwoWay, null, (obj, oldVal, newVal) => {
-                BindablePropertyChanged(obj, oldVal, newVal);
-                if (oldVal != newVal)
-                {
-                    var instance = (CircularSlider)obj;
-                    instance.OnValueChanged?.Invoke(instance, new ValueChangedEventArgs((double)oldVal, (double)newVal));
-                }
+                var instance = (CircularSlider)obj;
+                instance.ValueChanged();
+                instance.OnValueChanged?.Invoke(instance, new ValueChangedEventArgs((double)oldVal, (double)newVal));
             });
 
         public static readonly BindableProperty PaddingAroundProperty = BindableProperty.Create(nameof(PaddingAround),
@@ -133,7 +128,7 @@ namespace CC
                 {
                     OnValueChanged?.Invoke(this, new ValueChangedEventArgs(old, Value));
                 }
-                BindablePropertyChanged(this, old, value);
+                ValueChanged();                
             }
         }
 
@@ -184,9 +179,18 @@ namespace CC
             EnableTouchEvents = true;
         }
 
+        protected void ValueChanged()
+        {
+            progress = (Value - Minimum) / (Maximum-Minimum);
+            progressArc = Arc * progress;
+            hasTouch = false;
+            InvalidateSurface();
+        }
+
         protected override void OnTouch(SKTouchEventArgs e)
         {
             base.OnTouch(e);
+
             hasTouch = true;
             touchX = e.Location.X;
             touchY = e.Location.Y;
@@ -244,17 +248,16 @@ namespace CC
                 if (progressArc > Arc) progressArc = Arc;
                 else if (progressArc < 0) progressArc = 0;
 
-                var oldVal = Value;
                 progress = progressArc / Arc;
-                if (oldVal != CalculatedValue)
-                {
-                    Value = CalculatedValue;
-                }
+
+                var calculatedValue = Minimum + ((Maximum-Minimum) * progress);
+
+                if (Value != calculatedValue)
+                    Value = calculatedValue;
             }
 
             var px = originX + (float)(radius * Math.Cos(Utils.ToRadians(Start + progressArc)));
             var py = originY + (float)(radius * Math.Sin(Utils.ToRadians(Start + progressArc)));
-
 
             trackPaint.StrokeWidth = (float)TrackWidth;
             progressPaint.StrokeWidth = (float)TrackProgressWidth;
@@ -277,8 +280,6 @@ namespace CC
         {
             var instance = (CircularSlider)bindable;
             instance.hasTouch = false;
-            instance.progress = instance.Value / instance.Maximum;
-            instance.progressArc = instance.Arc * instance.progress;
             instance.InvalidateSurface();
         }
     }

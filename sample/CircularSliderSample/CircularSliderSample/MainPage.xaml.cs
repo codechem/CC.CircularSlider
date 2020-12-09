@@ -61,6 +61,8 @@ namespace CircularSliderSample
             {
                 Model.Color = Color.Red;
             }
+
+            Console.WriteLine(e.NewValue);
         }
     }
 }

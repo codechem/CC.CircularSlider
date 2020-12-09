@@ -94,4 +94,3 @@ This should give you a page with a large slider embedded.
 ## Dependencies and special thanks
 
 - SkiaSharp.Views.Forms
-- CC.TouchTracking.Forms - forked from https://github.com/OndrejKunc/SkiaScene, thanks to OndrejKunc for writing this
