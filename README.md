@@ -1,6 +1,6 @@
 # CC.CircularSlider.Forms
 ![License](https://img.shields.io/github/license/codechem/CC.CircularSlider.Forms)
-![Nuget](https://img.shields.io/nuget/v/CC.CircularSlider.Forms)
+[]![Nuget](https://img.shields.io/nuget/v/CC.CircularSlider.Forms)
 
 Circle Slider Component for Xamarin.Forms.
 
@@ -71,20 +71,6 @@ namespace CircularSliderSample
 ```
 
 This should give you a page with a large slider embedded.
-
-## Special notes for iOS:
-In order for the touch events to work on iOS, a workaround is required, so in your iOS project, add the following call before `LaunchApplication(...)` in the `FinishedLaunching` method in `AppDelegate.cs`:
-
-```c#
-public override bool FinishedLaunching(UIApplication app, NSDictionary options)
-{
-    global::Xamarin.Forms.Forms.Init();
-    CC.CircularSlider.iOS.PlatformInit.Init(); // <---- Add this!
-    LoadApplication(new App());
-
-    return base.FinishedLaunching(app, options);
-}
-```
 
 ## Bindable Properties/Events
 
