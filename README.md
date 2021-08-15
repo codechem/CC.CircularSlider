@@ -1,6 +1,6 @@
 # CC.CircularSlider.Forms
 ![License](https://img.shields.io/github/license/codechem/CC.CircularSlider.Forms)
-[]![Nuget](https://img.shields.io/nuget/v/CC.CircularSlider.Forms)
+[![Nuget](https://img.shields.io/nuget/v/CC.CircularSlider.Forms)](https://www.nuget.org/packages/CC.CircularSlider.Forms/)
 
 Circle Slider Component for Xamarin.Forms.
 
@@ -18,7 +18,7 @@ Supported platforms are currently iOS and Android, UWP support is possible, but 
 Supported platforms are currently iOS and Android, UWP support is possible, but not in scope right now, drop an issue if you're interested in having it implemented, or open a PR, of course.
 
 ```
-Install-Package CC.CircularSlider
+Install-Package CC.CircularSlider.Forms
 ```
 
 ## Usage
