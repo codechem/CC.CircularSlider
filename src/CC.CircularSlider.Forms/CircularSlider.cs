@@ -203,7 +203,8 @@ namespace CC
                 OnDragEnd?.Invoke(this, new DragEndEventArgs
                 {
                     X = e.Location.X,
-                    Y = e.Location.Y
+                    Y = e.Location.Y,
+                    Value = Value
                 });
             }
 
