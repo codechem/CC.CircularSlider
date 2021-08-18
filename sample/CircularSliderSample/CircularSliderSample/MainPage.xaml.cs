@@ -42,7 +42,13 @@ namespace CircularSliderSample
 
         void Button_Clicked(System.Object sender, System.EventArgs e)
         {
-                Model.Value = 25;
+            Model.Value = 25;
+        }
+
+
+        void CircularSlider_OnDragEnd(System.Object sender, CC.DragEndEventArgs e)
+        {
+            Console.WriteLine($"DragEnd: {e.Value}");
         }
 
         private void CircularSlider_OnValueChanged(object sender, ValueChangedEventArgs e)
@@ -62,7 +68,7 @@ namespace CircularSliderSample
                 Model.Color = Color.Red;
             }
 
-            Console.WriteLine(e.NewValue);
+            Console.WriteLine($"ValueChanged: {e.NewValue}");
         }
     }
 }

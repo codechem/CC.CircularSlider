@@ -94,6 +94,9 @@ namespace CC
         public delegate void ValueChangedHandler(object sender, ValueChangedEventArgs e);
         public event ValueChangedHandler OnValueChanged;
 
+        public delegate void DragEndHandler(object sender, DragEndEventArgs e);
+        public event DragEndHandler OnDragEnd;
+
         public double Start
         {
             get => (double)GetValue(StartProperty);
@@ -194,6 +197,17 @@ namespace CC
             hasTouch = true;
             touchX = e.Location.X;
             touchY = e.Location.Y;
+
+            if (e.ActionType == SKTouchAction.Released)
+            {
+                OnDragEnd?.Invoke(this, new DragEndEventArgs
+                {
+                    X = e.Location.X,
+                    Y = e.Location.Y,
+                    Value = Value
+                });
+            }
+
             InvalidateSurface();
             e.Handled = true;
         }
