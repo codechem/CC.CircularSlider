@@ -8,7 +8,7 @@
     <owners>Code Chemistry</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>CC.CircularSlider.Forms Circular slider implementation for Xamarin.Forms.</description>
-    <licenseUrl>https://github.com/codechem/CC.CircularSlider.Forms/blob/master/LICENSE</licenseUrl>
+    <license type="file">..\license\LICENSE.md</license>
     <projectUrl>https://github.com/codechem/CC.CircularSlider.Forms</projectUrl>
     <tags>circular,slider,arc,xamarin,forms,touch,ios,android,cross-platform</tags>
     <dependencies>
@@ -18,6 +18,7 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="..\LICENSE.md" />
     <file src="..\src\CC.CircularSlider.Forms\bin\Release\netstandard2.0\CC.CircularSlider.Forms.dll" target="lib/netstandard2.0" /> 
     <file src="..\src\CC.CircularSlider.Forms\bin\Release\netstandard2.0\CC.CircularSlider.Forms.dll" target="lib/XamariniOS" /> 
     <file src="..\src\CC.CircularSlider.Forms\bin\Release\netstandard2.0\CC.CircularSlider.Forms.dll" target="lib/MonoAndroid" /> 
