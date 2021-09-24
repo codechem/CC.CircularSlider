@@ -84,7 +84,7 @@ namespace CC
         public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value),
             typeof(double), typeof(CircularSlider), 0.0, BindingMode.TwoWay, null, (obj, oldVal, newVal) => {
                 var instance = (CircularSlider)obj;
-                instance.ValueChanged();
+                instance.RecalculateProgress();
                 instance.OnValueChanged?.Invoke(instance, new ValueChangedEventArgs((double)oldVal, (double)newVal));
             });
 
@@ -131,7 +131,7 @@ namespace CC
                 {
                     OnValueChanged?.Invoke(this, new ValueChangedEventArgs(old, Value));
                 }
-                ValueChanged();                
+                RecalculateProgress();                
             }
         }
 
@@ -180,9 +180,10 @@ namespace CC
         public CircularSlider()
         {
             EnableTouchEvents = true;
+            RecalculateProgress();
         }
 
-        protected void ValueChanged()
+        protected void RecalculateProgress()
         {
             progress = (Value - Minimum) / (Maximum-Minimum);
             progressArc = Arc * progress;
@@ -294,6 +295,7 @@ namespace CC
         {
             var instance = (CircularSlider)bindable;
             instance.hasTouch = false;
+            instance.RecalculateProgress();
             instance.InvalidateSurface();
         }
     }
