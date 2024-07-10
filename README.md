@@ -1,24 +1,17 @@
-# CC.CircularSlider.Forms
-![License](https://img.shields.io/github/license/codechem/CC.CircularSlider.Forms)
-[![Nuget](https://img.shields.io/nuget/v/CC.CircularSlider.Forms)](https://www.nuget.org/packages/CC.CircularSlider.Forms/)
+# CircularSlider.Maui
+![License](https://img.shields.io/github/license/adam--/CircularSlider.Maui)
 
-Circle Slider Component for Xamarin.Forms.
-
+Circle Slider Component for .NET MAUI. Forked and ported from [CC.CircularSlider.Forms](https://github.com/codechem/CC.CircularSlider.Forms) to .NET MAUI.
 ## Preview
 ![](preview.gif)
 
 
-## Supported Platforms
-
-Supported platforms are currently iOS and Android, UWP support is possible, but not in scope right now, drop an issue if you're interested in having it implemented, or open a PR, of course.
-
-
 ## Setup
 
-Supported platforms are currently iOS and Android, UWP support is possible, but not in scope right now, drop an issue if you're interested in having it implemented, or open a PR, of course.
+Supported platforms are currently iOS and Android.
 
 ```
-Install-Package CC.CircularSlider.Forms
+Install-Package CircularSlider.Maui
 ```
 
 ## Usage
@@ -29,19 +22,14 @@ Install-Package CC.CircularSlider.Forms
     x:Class="CircularSliderSample.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:cc="clr-namespace:CC;assembly=CC.CircularSlider.Forms">
+    xmlns:circularSlider="clr-namespace:CircularSlider.Maui;assembly=CircularSlider.Maui">
 
-    <StackLayout Padding="50">
-        <cc:CircularSlider
-            Arc="360"
-            KnobColor="{Binding Color}"
+    <StackLayout>
+        <circularSlider:CircularSlider
             Maximum="100"
             Minimum="0"
-            OnValueChanged="CircularSlider_OnValueChanged"
             PaddingAround="10"
             Start="90"
-            TrackProgressColor="{Binding Color}"
-            VerticalOptions="FillAndExpand"
             Value="50" />
     </StackLayout>
 </ContentPage>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="CircularSliderSample.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:circularSliderSample="clr-namespace:CircularSliderSample"
+    xmlns:maui="clr-namespace:CircularSlider.Maui;assembly=CircularSlider.Maui"
+    x:DataType="circularSliderSample:MainPageViewModel">
+
+    <VerticalStackLayout Padding="30,0" Spacing="25">
+        <HorizontalStackLayout HeightRequest="100">
+            <maui:CircularSlider
+                Arc="360"
+                HeightRequest="100"
+                PaddingAround="10"
+                Start="270"
+                WidthRequest="100"
+                Value="0.5" />
+            <maui:CircularSlider
+                Arc="310"
+                HeightRequest="100"
+                PaddingAround="25"
+                Start="115"
+                WidthRequest="100"
+                Value="0.5" />
+        </HorizontalStackLayout>
+        <maui:CircularSlider
+            Arc="360"
+            HeightRequest="150"
+            KnobColor="{Binding Color}"
+            Maximum="120"
+            Minimum="5"
+            OnDragEnd="CircularSlider_OnDragEnd"
+            OnValueChanged="CircularSlider_OnValueChanged"
+            PaddingAround="10"
+            Start="90"
+            TrackProgressColor="{Binding Color}"
+            TrackProgressWidth="3"
+            TrackWidth="3"
+            Value="{Binding Value}" />
+        <Entry Text="{Binding Value}" />
+
+        <Button Clicked="Button_Clicked" Text="Reset Value" />
+        <maui:CircularSlider
+            Arc="310"
+            HeightRequest="150"
+            PaddingAround="25"
+            Start="115"
+            Value="0.5" />
+    </VerticalStackLayout>
+</ContentPage>
