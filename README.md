@@ -2,6 +2,7 @@
 ![License](https://img.shields.io/github/license/adam--/CircularSlider.Maui)
 
 Circle Slider Component for .NET MAUI. Forked and ported from [CC.CircularSlider.Forms](https://github.com/codechem/CC.CircularSlider.Forms) to .NET MAUI.
+
 ## Preview
 ![](preview.gif)
 
@@ -10,9 +11,8 @@ Circle Slider Component for .NET MAUI. Forked and ported from [CC.CircularSlider
 
 Supported platforms are currently iOS and Android.
 
-```
-Install-Package CircularSlider.Maui
-```
+> Not yet released to NuGet
+
 
 ## Usage
 
@@ -34,31 +34,6 @@ Install-Package CircularSlider.Maui
     </StackLayout>
 </ContentPage>
 ```
-
-And in the C#:
-
-```c#
-using System;
-using Xamarin.Forms;
-
-namespace CircularSliderSample
-{
-    public partial class MainPage : ContentPage
-    {
-        public MainPage()
-        {
-            InitializeComponent();
-        }
-
-        private void CircularSlider_OnValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            Console.WriteLine(e.NewValue);
-        }
-    }
-}
-```
-
-This should give you a page with a large slider embedded.
 
 ## Bindable Properties/Events
 
