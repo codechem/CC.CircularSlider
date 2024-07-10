@@ -62,13 +62,13 @@ public class CircularSlider : SKCanvasView
         });
 
     public static readonly BindableProperty TrackWidthProperty = BindableProperty.Create(nameof(TrackWidth),
-        typeof(double), typeof(CircularSlider), 5.0, BindingMode.OneWay, null, BindablePropertyChanged);
+        typeof(double), typeof(CircularSlider), 3.0, BindingMode.OneWay, null, BindablePropertyChanged);
 
     public static readonly BindableProperty TrackProgressWidthProperty = BindableProperty.Create(nameof(TrackProgressWidth),
-        typeof(double), typeof(CircularSlider), 10.0, BindingMode.OneWay, null, BindablePropertyChanged);
+        typeof(double), typeof(CircularSlider), 4.0, BindingMode.OneWay, null, BindablePropertyChanged);
 
     public static readonly BindableProperty KnobWidthProperty = BindableProperty.Create(nameof(KnobWidth),
-        typeof(double), typeof(CircularSlider), 20.0, BindingMode.OneWay, null, BindablePropertyChanged);
+        typeof(double), typeof(CircularSlider), 10.0, BindingMode.OneWay, null, BindablePropertyChanged);
 
     public static readonly BindableProperty StartProperty = BindableProperty.Create(nameof(Start),
         typeof(double), typeof(CircularSlider), 90.0, BindingMode.OneWay, null, BindablePropertyChanged);
@@ -277,8 +277,8 @@ public class CircularSlider : SKCanvasView
         var px = originX + (float)(radius * Math.Cos(Utils.ToRadians(Start + _progressArc)));
         var py = originY + (float)(radius * Math.Sin(Utils.ToRadians(Start + _progressArc)));
 
-        _trackPaint.StrokeWidth = (float)TrackWidth;
-        _progressPaint.StrokeWidth = (float)TrackProgressWidth;
+        _trackPaint.StrokeWidth = ConvertDipsToPixels(TrackWidth);
+        _progressPaint.StrokeWidth = ConvertDipsToPixels(TrackProgressWidth);
 
         // Back arc
         canvas.DrawArc(arcRect, (float)Start, (float)Arc, false, _trackPaint);
@@ -288,7 +288,7 @@ public class CircularSlider : SKCanvasView
 
         // Knob
         var knobPt = new SKPoint((float)px, (float)py);
-        canvas.DrawCircle(knobPt, (float)KnobWidth, _knobPaint);
+        canvas.DrawCircle(knobPt, ConvertDipsToPixels(KnobWidth), _knobPaint);
 
         // Translate whole rect to middle
         canvas.Translate(arcRect.Width * 0.5f, arcRect.MidY - arcRect.Height * 0.5f);
@@ -301,4 +301,10 @@ public class CircularSlider : SKCanvasView
         instance.RecalculateProgress();
         instance.InvalidateSurface();
     }
+
+    private static float ConvertDipsToPixels(double dips)
+{
+    var density = DeviceDisplay.MainDisplayInfo.Density;
+    return (float)(dips * density);
+}
 }

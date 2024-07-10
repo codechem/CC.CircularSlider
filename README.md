@@ -67,8 +67,8 @@ This should give you a page with a large slider embedded.
 | Property   | Minimum                   | The minimum value of the slider.                                                                                                    | `0`                        |
 | Property   | Maximum                   | The maximum value of the slider.                                                                                                    | `1`                        |
 | Property   | TrackColor                | The color of the background track (the back, unfilled part of the slider)                                                           | `Color.Gray`               |
-| Property   | TrackProgressColor        | The color of the progress track (the front, filled part of the slider)                                                              | `Color.Red`                |
-| Property   | KnobColor                 | The color of the knob/handle of the slider                                                                                          | `Color.Red`                |
+| Property   | TrackProgressColor        | The color of the progress track (the front, filled part of the slider)                                                              | [`Application.AccentColor`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.application.accentcolor) |
+| Property   | KnobColor                 | The color of the knob/handle of the slider                                                                                          | [`Application.AccentColor`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.application.accentcolor) |
 | Property   | TrackWidth                | The width of the background track (the back, unfilled part of the slider)                                                           | `20`                       |
 | Property   | TrackProgressWidth        | The width of the progress track (the front, filled part of the slider)                                                              | `10`                       |
 | Property   | KnobWidth                 | The width of the knob/handle of the slider                                                                                          | `5`                        |
@@ -78,7 +78,6 @@ This should give you a page with a large slider embedded.
 | Property   | PaddingAround             | Spacing from the edges of the control.                                                                                              | `25`                       |
 | Event      | ValueChanged              | Event fired when the value changes due to user interaction - same event args as the regular Xamarin.Forms Slider control.           |                            |
 
+## Dependencies
 
-## Dependencies and special thanks
-
-- SkiaSharp.Views.Forms
+- SkiaSharp.Views.Maui.Controls
