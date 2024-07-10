@@ -6,14 +6,14 @@ namespace CircularSlider.Maui;
 
 public class CircularSlider : SKCanvasView
 {
-    bool hasTouch = false;
-    double progress = 0;
-    double progressArc = 0;
+    private bool _hasTouch;
+    private double _progress;
+    private double _progressArc;
 
-    float touchX = -1;
-    float touchY = -1;
+    private float _touchX = -1;
+    private float _touchY = -1;
 
-    private SKPaint progressPaint = new SKPaint
+    private readonly SKPaint _progressPaint = new SKPaint
     {
         Style = SKPaintStyle.Stroke,
         Color = Colors.Red.ToSKColor(),
@@ -21,7 +21,7 @@ public class CircularSlider : SKCanvasView
         IsAntialias = true
     };
 
-    private SKPaint knobPaint = new SKPaint
+    private readonly SKPaint _knobPaint = new SKPaint
     {
         Style = SKPaintStyle.StrokeAndFill,
         Color = Colors.Red.ToSKColor(),
@@ -29,7 +29,7 @@ public class CircularSlider : SKCanvasView
         IsAntialias = true
     };
 
-    private SKPaint trackPaint = new SKPaint
+    private readonly SKPaint _trackPaint = new SKPaint
     {
         Style = SKPaintStyle.Stroke,
         Color = Colors.Gray.ToSKColor(),
@@ -41,21 +41,21 @@ public class CircularSlider : SKCanvasView
         typeof(Color), typeof(CircularSlider), Colors.Red, BindingMode.OneWay, null, (bindable, oldValue, newValue) =>
         {
             var instance = (CircularSlider)bindable;
-            instance.trackPaint.Color = ((Color)newValue).ToSKColor();
+            instance._trackPaint.Color = ((Color)newValue).ToSKColor();
         });
 
     public static readonly BindableProperty KnobColorProperty = BindableProperty.Create(nameof(KnobColor),
         typeof(Color), typeof(CircularSlider), Colors.Red, BindingMode.OneWay, null, (bindable, oldValue, newValue) =>
         {
             var instance = (CircularSlider)bindable;
-            instance.knobPaint.Color = ((Color)newValue).ToSKColor();
+            instance._knobPaint.Color = ((Color)newValue).ToSKColor();
         });
 
     public static readonly BindableProperty TrackProgressColorProperty = BindableProperty.Create(nameof(TrackProgressColor),
         typeof(Color), typeof(CircularSlider), Colors.Red, BindingMode.OneWay, null, (bindable, oldValue, newValue) =>
         {
             var instance = (CircularSlider)bindable;
-            instance.progressPaint.Color = ((Color)newValue).ToSKColor();
+            instance._progressPaint.Color = ((Color)newValue).ToSKColor();
         });
 
     public static readonly BindableProperty TrackWidthProperty = BindableProperty.Create(nameof(TrackWidth),
@@ -91,10 +91,10 @@ public class CircularSlider : SKCanvasView
         typeof(double), typeof(CircularSlider), 25.0);
 
     public delegate void ValueChangedHandler(object sender, ValueChangedEventArgs e);
-    public event ValueChangedHandler OnValueChanged;
+    public event ValueChangedHandler? OnValueChanged;
 
     public delegate void DragEndHandler(object sender, DragEndEventArgs e);
-    public event DragEndHandler OnDragEnd;
+    public event DragEndHandler? OnDragEnd;
 
     public double Start
     {
@@ -185,9 +185,9 @@ public class CircularSlider : SKCanvasView
 
     protected void RecalculateProgress()
     {
-        progress = (Value - Minimum) / (Maximum - Minimum);
-        progressArc = Arc * progress;
-        hasTouch = false;
+        _progress = (Value - Minimum) / (Maximum - Minimum);
+        _progressArc = Arc * _progress;
+        _hasTouch = false;
         InvalidateSurface();
     }
 
@@ -195,9 +195,9 @@ public class CircularSlider : SKCanvasView
     {
         base.OnTouch(e);
 
-        hasTouch = true;
-        touchX = e.Location.X;
-        touchY = e.Location.Y;
+        _hasTouch = true;
+        _touchX = e.Location.X;
+        _touchY = e.Location.Y;
 
         if (e.ActionType == SKTouchAction.Released)
         {
@@ -232,10 +232,10 @@ public class CircularSlider : SKCanvasView
         var originX = arcRect.MidX;
         var originY = arcRect.MidY;
 
-        if (hasTouch)
+        if (_hasTouch)
         {
-            var (cx, cy) = Utils.PointOnCircle(originX, originY, radius, touchX, touchY);
-            double theta = Utils.PointOnCircleToAngle(cx, cy, originX, originY);
+            var (cx, cy) = Utils.PointOnCircle(originX, originY, radius, _touchX, _touchY);
+            var theta = Utils.PointOnCircleToAngle(cx, cy, originX, originY);
             var angleEnd = Utils.Modulo(Start + Arc, 360.0);
 
             var diffToStart = Math.Abs(Utils.AbsoluteDiff(Start, theta));
@@ -259,33 +259,33 @@ public class CircularSlider : SKCanvasView
                 theta += 360;
             }
 
-            progressArc = theta - Start;
-            if (progressArc > Arc) progressArc = Arc;
-            else if (progressArc < 0) progressArc = 0;
+            _progressArc = theta - Start;
+            if (_progressArc > Arc) _progressArc = Arc;
+            else if (_progressArc < 0) _progressArc = 0;
 
-            progress = progressArc / Arc;
+            _progress = _progressArc / Arc;
 
-            var calculatedValue = Minimum + (Maximum - Minimum) * progress;
+            var calculatedValue = Minimum + (Maximum - Minimum) * _progress;
 
             if (Value != calculatedValue)
                 Value = calculatedValue;
         }
 
-        var px = originX + (float)(radius * Math.Cos(Utils.ToRadians(Start + progressArc)));
-        var py = originY + (float)(radius * Math.Sin(Utils.ToRadians(Start + progressArc)));
+        var px = originX + (float)(radius * Math.Cos(Utils.ToRadians(Start + _progressArc)));
+        var py = originY + (float)(radius * Math.Sin(Utils.ToRadians(Start + _progressArc)));
 
-        trackPaint.StrokeWidth = (float)TrackWidth;
-        progressPaint.StrokeWidth = (float)TrackProgressWidth;
+        _trackPaint.StrokeWidth = (float)TrackWidth;
+        _progressPaint.StrokeWidth = (float)TrackProgressWidth;
 
         // Back arc
-        canvas.DrawArc(arcRect, (float)Start, (float)Arc, false, trackPaint);
+        canvas.DrawArc(arcRect, (float)Start, (float)Arc, false, _trackPaint);
 
         // Progress arc
-        canvas.DrawArc(arcRect, (float)Start, (float)progressArc, false, progressPaint);
+        canvas.DrawArc(arcRect, (float)Start, (float)_progressArc, false, _progressPaint);
 
         // Knob
         var knobPt = new SKPoint((float)px, (float)py);
-        canvas.DrawCircle(knobPt, (float)KnobWidth, knobPaint);
+        canvas.DrawCircle(knobPt, (float)KnobWidth, _knobPaint);
 
         // Translate whole rect to middle
         canvas.Translate(arcRect.Width * 0.5f, arcRect.MidY - arcRect.Height * 0.5f);
@@ -294,7 +294,7 @@ public class CircularSlider : SKCanvasView
     private static void BindablePropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var instance = (CircularSlider)bindable;
-        instance.hasTouch = false;
+        instance._hasTouch = false;
         instance.RecalculateProgress();
         instance.InvalidateSurface();
     }

@@ -4,26 +4,29 @@ namespace CircularSliderSample;
 
 public class MainPageViewModel : INotifyPropertyChanged
 {
-    public event PropertyChangedEventHandler PropertyChanged;
+    private Color _color = Colors.Orange;
 
-    double value = 25;
+    private double _value = 25;
+
     public double Value
     {
-        get => value;
+        get => _value;
         set
         {
-            this.value = value;
+            _value = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
         }
     }
 
-    Color color = Colors.Orange;
     public Color Color
     {
-        get => color;
-        set {
-            color = value;
+        get => _color;
+        set
+        {
+            _color = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Color)));
         }
     }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 }

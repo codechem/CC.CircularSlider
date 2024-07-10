@@ -2,6 +2,8 @@
 
 public static class Utils
 {
+    private const double InRangeTolerance = 1e-15;
+
     public static double PointOnCircleToAngle(double cx, double cy, double x, double y)
     {
         var theta = ToDegrees(Math.Atan2(cy - y, cx - x)) % 360.0;
@@ -28,26 +30,26 @@ public static class Utils
 
     public static bool IsInRange(double from, double to, double angle)
     {
-        var _from = Modulo(from, 360.0);
-        var _to = Modulo(to, 360.0);
-        var _angle = Modulo(angle, 360.0);
-        if (_from < 0) _from += 360;
-        if (_to < 0) _to += 360;
-        if (_angle < 0) _angle += 360;
-        if (_from == _to)
+        var normalizedFrom = Modulo(from, 360.0);
+        var normalizedTo = Modulo(to, 360.0);
+        var normalizedAngle = Modulo(angle, 360.0);
+        if (normalizedFrom < 0) normalizedFrom += 360;
+        if (normalizedTo < 0) normalizedTo += 360;
+        if (normalizedAngle < 0) normalizedAngle += 360;
+        if (Math.Abs(normalizedFrom - normalizedTo) < InRangeTolerance)
         {
             if (to > from)
                 return true;
-            return _angle == _from;
+            return Math.Abs(normalizedAngle - normalizedFrom) < InRangeTolerance;
         }
-        if (_to < _from)
-            return _angle <= _to || from <= _angle;
-        return _from <= _angle && _angle <= _to;
+        if (normalizedTo < normalizedFrom)
+            return normalizedAngle <= normalizedTo || from <= normalizedAngle;
+        return normalizedFrom <= normalizedAngle && normalizedAngle <= normalizedTo;
     }
 
     public static double AbsoluteDiff(double a, double b)
     {
-        double difference = b - a;
+        var difference = b - a;
         while (difference < -180) difference += 360;
         while (difference > 180) difference -= 360;
         return difference;
