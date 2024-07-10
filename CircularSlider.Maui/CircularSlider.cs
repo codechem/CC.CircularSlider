@@ -6,6 +6,9 @@ namespace CircularSlider.Maui;
 
 public class CircularSlider : SKCanvasView
 {
+    private static readonly Color DefaultAccentColor = Application.AccentColor ?? Colors.HotPink;
+    private static readonly Color DefaultTrackColor = Colors.Grey;
+
     private bool _hasTouch;
     private double _progress;
     private double _progressArc;
@@ -16,7 +19,7 @@ public class CircularSlider : SKCanvasView
     private readonly SKPaint _progressPaint = new SKPaint
     {
         Style = SKPaintStyle.Stroke,
-        Color = Colors.Red.ToSKColor(),
+        Color =  DefaultAccentColor.ToSKColor(),
         StrokeWidth = 10,
         IsAntialias = true
     };
@@ -24,7 +27,7 @@ public class CircularSlider : SKCanvasView
     private readonly SKPaint _knobPaint = new SKPaint
     {
         Style = SKPaintStyle.StrokeAndFill,
-        Color = Colors.Red.ToSKColor(),
+        Color = DefaultAccentColor.ToSKColor(),
         StrokeWidth = 10,
         IsAntialias = true
     };
@@ -32,27 +35,27 @@ public class CircularSlider : SKCanvasView
     private readonly SKPaint _trackPaint = new SKPaint
     {
         Style = SKPaintStyle.Stroke,
-        Color = Colors.Gray.ToSKColor(),
+        Color = DefaultTrackColor.ToSKColor(),
         StrokeWidth = 5,
         IsAntialias = true
     };
 
     public static readonly BindableProperty TrackColorProperty = BindableProperty.Create(nameof(TrackColor),
-        typeof(Color), typeof(CircularSlider), Colors.Red, BindingMode.OneWay, null, (bindable, oldValue, newValue) =>
+        typeof(Color), typeof(CircularSlider), DefaultAccentColor, BindingMode.OneWay, null, (bindable, oldValue, newValue) =>
         {
             var instance = (CircularSlider)bindable;
             instance._trackPaint.Color = ((Color)newValue).ToSKColor();
         });
 
     public static readonly BindableProperty KnobColorProperty = BindableProperty.Create(nameof(KnobColor),
-        typeof(Color), typeof(CircularSlider), Colors.Red, BindingMode.OneWay, null, (bindable, oldValue, newValue) =>
+        typeof(Color), typeof(CircularSlider), DefaultAccentColor, BindingMode.OneWay, null, (bindable, oldValue, newValue) =>
         {
             var instance = (CircularSlider)bindable;
             instance._knobPaint.Color = ((Color)newValue).ToSKColor();
         });
 
     public static readonly BindableProperty TrackProgressColorProperty = BindableProperty.Create(nameof(TrackProgressColor),
-        typeof(Color), typeof(CircularSlider), Colors.Red, BindingMode.OneWay, null, (bindable, oldValue, newValue) =>
+        typeof(Color), typeof(CircularSlider), DefaultAccentColor, BindingMode.OneWay, null, (bindable, oldValue, newValue) =>
         {
             var instance = (CircularSlider)bindable;
             instance._progressPaint.Color = ((Color)newValue).ToSKColor();
