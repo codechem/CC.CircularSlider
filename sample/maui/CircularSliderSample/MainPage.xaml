@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cc="clr-namespace:CC;assembly=CC.CircularSlider.MAUI"
+             x:Class="CircularSliderSample.MainPage">
+    <Grid RowDefinitions="*, 3*, 3*"
+          ColumnDefinitions="*, *">
+    <cc:CircularSlider
+        Arc="360"
+        HorizontalOptions="Fill"
+        PaddingAround="25"
+        Start="270"
+        VerticalOptions="Fill"
+        Value="0.5" />
+    <cc:CircularSlider
+        Grid.Column="1"
+        Arc="310"
+        HorizontalOptions="Fill"
+        PaddingAround="25"
+        Start="115"
+        VerticalOptions="Fill"
+        Value="0.5" />
+    <cc:CircularSlider
+        Grid.Row="1"
+        Grid.ColumnSpan="2"
+        Arc="360"
+        KnobColor="{Binding Color}"
+        Maximum="120"
+        Minimum="5"
+        OnValueChanged="CircularSlider_OnValueChanged"
+        OnDragEnd="CircularSlider_OnDragEnd"
+        PaddingAround="10"
+        Start="90"
+        TrackProgressColor="{Binding Color}"
+        VerticalOptions="Fill"
+        Value="{Binding Value}" />
+    <cc:CircularSlider
+        Grid.Row="2"
+        Grid.ColumnSpan="2"
+        Arc="310"
+        PaddingAround="25"
+        Start="115"
+        VerticalOptions="Fill"
+        Value="0.5" />
+    </Grid>
+</ContentPage>
