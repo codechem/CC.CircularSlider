@@ -2,7 +2,7 @@
 ![License](https://img.shields.io/github/license/codechem/CC.CircularSlider.Forms)
 [![Nuget](https://img.shields.io/nuget/v/CC.CircularSlider.Forms)](https://www.nuget.org/packages/CC.CircularSlider.Forms/)
 
-Circle Slider Component for Xamarin.Forms.
+Circle Slider Component for Xamarin.Forms and .NET MAUI.
 
 ## Preview
 ![](preview.gif)
@@ -21,7 +21,9 @@ Supported platforms are currently iOS and Android, UWP support is possible, but 
 Install-Package CC.CircularSlider.Forms
 ```
 
-## Usage
+## Usage 
+
+### Xamarin.Forms
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -47,12 +49,43 @@ Install-Package CC.CircularSlider.Forms
 </ContentPage>
 ```
 
+### .NET MAUI
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    x:Class="CircularSliderSample.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cc="clr-namespace:CC;assembly=CC.CircularSlider.MAUI"
+    x:Class="CircularSliderSample.MainPage">
+
+    <StackLayout 
+        Orientation="Horizontal" 
+        HorizontalOptions="Fill" 
+        VerticalOptions="Center">
+            <slider:CircularSlider 
+                PaddingAround="45" 
+                Start="120" 
+                Arc="300" 
+                TrackWidth="2" 
+                KnobColor="{DynamicResource BrandColor}" 
+                TrackColor="{DynamicResource BrandColor}" 
+                TrackProgressColor="{DynamicResource BrandColor}" 
+                Minimum="{Binding MinimumValue}" 
+                Maximum="{Binding MaximumValue}" 
+                Value="{Binding ActualValue}" 
+                OnValueChanged="CircularSlider_OnOnValueChanged" 
+                VerticalOptions="Center" 
+                HeightRequest="400" 
+                HorizontalOptions="Fill"/> 
+    </StackLayout>
+</ContentPage>
+```
+
 And in the C#:
 
 ```c#
-using System;
-using Xamarin.Forms;
-
 namespace CircularSliderSample
 {
     public partial class MainPage : ContentPage
@@ -94,3 +127,4 @@ This should give you a page with a large slider embedded.
 ## Dependencies and special thanks
 
 - SkiaSharp.Views.Forms
+- SkiaSharp.Views.Maui.Controls

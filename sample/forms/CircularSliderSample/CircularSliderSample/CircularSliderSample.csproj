@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\src\CC.CircularSlider.Forms\CC.CircularSlider.Forms.csproj" />
+      <ProjectReference Include="..\..\..\..\forms\CC.CircularSlider.Forms\CC.CircularSlider.Forms.csproj" />
     </ItemGroup>
 
     <ItemGroup>
