@@ -1,6 +1,7 @@
 # CC.CircularSlider.Forms
 ![License](https://img.shields.io/github/license/codechem/CC.CircularSlider.Forms)
 [![Nuget](https://img.shields.io/nuget/v/CC.CircularSlider.Forms)](https://www.nuget.org/packages/CC.CircularSlider.Forms/)
+[![Nuget](https://img.shields.io/nuget/v/CC.CircularSlider.MAUI)](https://www.nuget.org/packages/CC.CircularSlider.MAUI)
 
 Circle Slider Component for Xamarin.Forms and .NET MAUI.
 
