@@ -22,6 +22,20 @@ Supported platforms are currently iOS and Android, UWP support is possible, but 
 Install-Package CC.CircularSlider.Forms
 ```
 
+For .NET MAUI:
+
+```
+Install-Package CC.CircularSlider.MAUI
+```
+
+## Latest Release
+
+### CC.CircularSlider.MAUI 1.1.0
+
+- Retargeted to .NET 10 MAUI.
+- Updated SkiaSharp.Views.Maui.Controls to 3.119.4.
+- Prepared for modern Android packaging/tooling, including 16 KB page-size compatibility workflows.
+
 ## Usage 
 
 ### Xamarin.Forms
